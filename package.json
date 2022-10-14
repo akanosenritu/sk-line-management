@@ -9,9 +9,14 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@azure/cosmos": "^3.17.1",
+    "@chatscope/chat-ui-kit-react": "^1.9.7",
+    "@chatscope/chat-ui-kit-styles": "^1.4.0",
     "@emotion/react": "^11.10.4",
     "@emotion/styled": "^11.10.4",
     "@mui/material": "^5.10.9",
+    "cross-fetch": "^3.1.5",
+    "date-fns": "^2.29.3",
     "next": "12.3.1",
     "next-auth": "^4.14.0",
     "react": "18.2.0",
