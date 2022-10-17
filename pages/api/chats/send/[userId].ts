@@ -4,7 +4,7 @@ import {nextAuthOptions} from "../../auth/[...nextauth]"
 import fetch from "cross-fetch"
 import {getEnvironmentVariableValue} from "../../../../lib/getEnvironmentVariables"
 
-const ENDPOINT = "https://func-sk-line.azurewebsites.net/api/send-message"
+const ENDPOINT = "https://func-sk-line-management.azurewebsites.net/api/send-message"
 
 const handler: NextApiHandler = async (req, res) => {
   // TODO: implement validation for messages

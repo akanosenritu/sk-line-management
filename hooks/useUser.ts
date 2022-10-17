@@ -6,7 +6,7 @@ const isGuest = (principalName: string): boolean => {
 }
 
 export const useUser = () => {
-  const {data: session} = useSession()
+  const {data: session, status} = useSession()
   const {data, error} = useSwr(() => {
     if (session?.token) return "graph/me"
     return null
@@ -21,5 +21,5 @@ export const useUser = () => {
   if (data && data.userPrincipalName) {
     data.isGuest = isGuest(data.userPrincipalName)
   }
-  return {isLoggedOut: !session?.token, data, error}
+  return {isLoggedOut: !session?.token, data, error, isLoading: status === "loading"}
 }

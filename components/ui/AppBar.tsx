@@ -12,9 +12,9 @@ export const AppBar = () => {
     <Box>
       <Typography variant={"h5"}>LINE 管理ツール v0.1</Typography>
     </Box>
-    {matches && <Box sx={{flexGrow: 1, display: "flex", justifyContent: "center", "&>.MuiTypography-root": {mx: 0.5}}}>
+    {matches && <Box sx={{flexGrow: 1, display: "flex", justifyContent: "start", "&>.MuiTypography-root": {mx: 5}}}>
       <Typography variant={"h6"} sx={{"&:hover": {borderBottom: "1px solid white"}}}>
-        <Link href={"/chats"}>チャット</Link>
+        <Link href={"/users"}>ユーザー管理</Link>
       </Typography>
     </Box>}
     {matches && <Box sx={{display: "flex", alignItems: "center"}}>
