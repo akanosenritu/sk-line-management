@@ -1,16 +1,22 @@
 import {NextPage} from "next"
-import {Box, Paper} from "@mui/material"
+import {Box, CircularProgress, Paper} from "@mui/material"
 import {useRouter} from "next/router"
 import {LinkAccountPage} from "../../../../components/pages/users/line/userId/LinkAccountPage"
+
+const Loading = () => {
+  return <Box sx={{display: "flex", justifyContent: "center", alignItems: "center"}}>
+    <CircularProgress />
+  </Box>
+}
 
 const Page: NextPage = () => {
   // lineUserId をDynamic routeから取得する。
   const router = useRouter()
   let {lineUserId} = router.query
-  if (!lineUserId) return <div>Error.</div>
+  if (!lineUserId) return <Loading />
   if (Array.isArray(lineUserId)) {
     if (lineUserId.length === 1) lineUserId = lineUserId[0]
-    else return <div>Error.</div>
+    else return <Loading/>
   }
 
   return <Paper elevation={0} sx={{height: "100%"}}>
