@@ -7,7 +7,7 @@ import {useSnackbar} from "notistack"
 
 const schema = yup.object({
   name: yup.string().required(),
-  phoneNumber: yup.string().required().matches(/[0-9]{10,11}/)
+  phoneNumber: yup.string().required().matches(/^[0-9]{10,11}$/)
 })
 
 const fetcher = (key: string) => fetch(key).then(res => res.json())
