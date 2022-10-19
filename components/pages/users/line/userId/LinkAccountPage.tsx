@@ -1,4 +1,4 @@
-import {Button, Stack, TextField, Typography} from "@mui/material"
+import {Button, Stack, Paper, TextField, Typography} from "@mui/material"
 import * as yup from "yup"
 import {yupResolver} from "@hookform/resolvers/yup"
 import {useForm} from "react-hook-form"
@@ -66,36 +66,38 @@ export const LinkAccountPage = (props: {userId: string}) => {
   }
 
   return <Stack spacing={2}>
-    <div>
+    <Paper>
       <Typography variant={"h6"}>LINEアカウント 紐づけ設定</Typography>
       <Typography variant={"body1"}>LINEアカウントとスタッフ登録情報の紐づけを行います。紐づけることでお仕事の詳細確認などがLINE上にてできるようになります。</Typography>
-    </div>
+    </Paper>
     <form onSubmit={handleSubmit(onSubmit)}>
-      <Stack spacing={2}>
-        <TextField
-          variant={"outlined"}
-          InputLabelProps={{
-            shrink: true
-          }}
-          label={"名前"}
-          fullWidth={true}
-          error={!!errors.name}
-          helperText={errors.name? "名前の入力は必須です": ""}
-          {...register("name")}
-        />
-        <TextField
-          variant={"outlined"}
-          label={"電話番号"}
-          InputLabelProps={{
-            shrink: true
-          }}
-          fullWidth={true}
-          error={!!errors.phoneNumber}
-          helperText={errors.phoneNumber? "電話番号の入力は必須です。ハイフン無しの数字のみ、10か11桁で入力してください。": ""}
-          {...register("phoneNumber")}
-        />
-        <Button variant={"contained"} color={"success"} type={"submit"}>登録する</Button>
-      </Stack>
+      <Paper>
+        <Stack spacing={2}>
+          <TextField
+            variant={"outlined"}
+            InputLabelProps={{
+              shrink: true
+            }}
+            label={"名前"}
+            fullWidth={true}
+            error={!!errors.name}
+            helperText={errors.name? "名前の入力は必須です": ""}
+            {...register("name")}
+          />
+          <TextField
+            variant={"outlined"}
+            label={"電話番号"}
+            InputLabelProps={{
+              shrink: true
+            }}
+            fullWidth={true}
+            error={!!errors.phoneNumber}
+            helperText={errors.phoneNumber? "電話番号の入力は必須です。ハイフン無しの数字のみ、10か11桁で入力してください。": ""}
+            {...register("phoneNumber")}
+          />
+          <Button variant={"contained"} color={"success"} type={"submit"}>登録する</Button>
+        </Stack>
+      </Paper>
     </form>
   </Stack>
 }
