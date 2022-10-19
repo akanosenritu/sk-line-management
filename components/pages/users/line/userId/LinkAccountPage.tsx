@@ -1,4 +1,4 @@
-import {Button, Stack, Paper, TextField, Typography} from "@mui/material"
+import {Button, Stack, Paper, TextField, Typography, Box} from "@mui/material"
 import * as yup from "yup"
 import {yupResolver} from "@hookform/resolvers/yup"
 import {useForm} from "react-hook-form"
@@ -65,13 +65,13 @@ export const LinkAccountPage = (props: {userId: string}) => {
     }
   }
 
-  return <Stack spacing={2}>
-    <Paper>
-      <Typography variant={"h6"}>LINEアカウント 紐づけ設定</Typography>
-      <Typography variant={"body1"}>LINEアカウントとスタッフ登録情報の紐づけを行います。紐づけることでお仕事の詳細確認などがLINE上にてできるようになります。</Typography>
-    </Paper>
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <Paper>
+  return <Paper sx={{width: "100%", height: "100%"}} elevation={0}>
+    <Stack spacing={2}>
+      <Box>
+        <Typography variant={"h6"}>LINEアカウント 紐づけ設定</Typography>
+        <Typography variant={"body1"}>LINEアカウントとスタッフ登録情報の紐づけを行います。紐づけることでお仕事の詳細確認などがLINE上にてできるようになります。</Typography>
+      </Box>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <Stack spacing={2}>
           <TextField
             variant={"outlined"}
@@ -97,7 +97,8 @@ export const LinkAccountPage = (props: {userId: string}) => {
           />
           <Button variant={"contained"} color={"success"} type={"submit"}>登録する</Button>
         </Stack>
-      </Paper>
-    </form>
-  </Stack>
+        
+      </form>
+    </Stack>
+  </Paper>
 }

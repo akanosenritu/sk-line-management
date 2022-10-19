@@ -1,5 +1,5 @@
 import {NextPage} from "next"
-import {Box} from "@mui/material"
+import {Box, Paper} from "@mui/material"
 import {useRouter} from "next/router"
 import {LinkAccountPage} from "../../../../components/pages/users/line/userId/LinkAccountPage"
 
@@ -13,9 +13,11 @@ const Page: NextPage = () => {
     else return <div>Error.</div>
   }
 
-  return <Box sx={{marginRight: "auto", marginLeft: "auto", maxWidth: 500, p: 2}}>
-    <LinkAccountPage userId={lineUserId} />
-  </Box>
+  return <Paper elevation={0} sx={{height: "100%"}}>
+    <Box sx={{marginRight: "auto", marginLeft: "auto", maxWidth: 500, p: 2}}>
+      <LinkAccountPage userId={lineUserId} />
+    </Box>
+  </Paper>
 }
 
 export default Page
