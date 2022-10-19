@@ -30,7 +30,7 @@ const handler: NextApiHandler = async (req, res) => {
     .container("AccountLinkTempData")
     .items
     .create({name, userId, phoneNumber})
-
+  
   res.status(201).json({name, userId, phoneNumber})
 }
 
