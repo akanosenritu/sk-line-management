@@ -29,7 +29,8 @@ export const LinkAccountPage = (props: {userId: string}) => {
         enqueueSnackbar("保存されていたデータを読み込みました", {variant: "info"})
         reset({name: result[0].name, phoneNumber: result[0].phoneNumber})
       }
-    }
+    },
+    revalidateOnFocus: false,
   })
 
   // notistack
