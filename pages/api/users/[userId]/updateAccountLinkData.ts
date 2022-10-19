@@ -1,5 +1,6 @@
 import {NextApiHandler} from "next"
 import {cosmosDBClient} from "../../../../lib/cosmosdb/cosmosDBClient"
+import {sendPushMessage} from "../../../../lib/line/sendPushMessage"
 
 const handler: NextApiHandler = async (req, res) => {
   // retrieve user id and check it
@@ -13,6 +14,7 @@ const handler: NextApiHandler = async (req, res) => {
       userId = userId[0]
     } else {
       res.status(400).json({error: "multiple userIds were provided."})
+      return
     }
   }
 
@@ -31,10 +33,15 @@ const handler: NextApiHandler = async (req, res) => {
     .container("AccountLinkTempData")
     .items
     .upsert({id: oldEntryId, name, userId, phoneNumber})
-
+  
+  await sendPushMessage({type: "user", userId}, [
+    {
+      "type": "text",
+      "text": "紐付け情報を更新しました。"
+    }
+  ])
+  
   res.status(201).json({name, userId, phoneNumber})
 }
 
 export default handler
-
-// TODO: prevent duplicate entries (multiple entries that share the same userId)

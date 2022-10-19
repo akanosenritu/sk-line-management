@@ -1,5 +1,6 @@
 import {NextApiHandler} from "next"
 import {cosmosDBClient} from "../../../../lib/cosmosdb/cosmosDBClient"
+import {sendPushMessage} from "../../../../lib/line/sendPushMessage"
 
 const handler: NextApiHandler = async (req, res) => {
   // retrieve user id and check it
@@ -13,6 +14,7 @@ const handler: NextApiHandler = async (req, res) => {
       userId = userId[0]
     } else {
       res.status(400).json({error: "multiple userIds were provided."})
+      return
     }
   }
 
@@ -31,6 +33,16 @@ const handler: NextApiHandler = async (req, res) => {
     .items
     .create({name, userId, phoneNumber})
   
+  await sendPushMessage({type: "user", userId}, [
+    {
+      "type": "text",
+      "text": "紐付け情報を登録いただきありがとうございました。登録作業には少しお時間を頂いております。"
+    },
+    {
+      "type": "text",
+      "text": "今後はこちらよりお仕事情報の閲覧が可能となります。お仕事へのお申し込みをお待ちしております！"
+    }
+  ])
   res.status(201).json({name, userId, phoneNumber})
 }
 
