@@ -1,5 +1,5 @@
 import {DataGrid, GridColDef, GridToolbar, jaJP} from "@mui/x-data-grid"
-import {Box, Button, Paper, Typography} from "@mui/material"
+import {Box, Paper, Typography} from "@mui/material"
 import {DetailsButton} from "./DetailsButton"
 
 const columns: GridColDef[] = [
@@ -66,7 +66,7 @@ const columns: GridColDef[] = [
     width: 100,
     editable: false,
     align: "center",
-    renderCell: (params) => <DetailsButton lineUserId={"Uaee4eab94a528exxxxxxxxxxx"} />
+    renderCell: (params) => <DetailsButton lineUserId={params.row.lineUserId} />
   }
 ]
 

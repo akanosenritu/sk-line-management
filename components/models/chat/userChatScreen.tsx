@@ -21,6 +21,7 @@ const getText = (message: MessageObject | OutboundMessageObject) => {
       return "表示できない形式のメッセージです。"
   }
 }
+
 const convertMessage = (message: CosmosDBLineMessageItemV1) => {
   const text = getText(message.message)
   const sender = message.direction === "in"? "ユーザー": "スタッフ"
