@@ -1,8 +1,9 @@
-import {Box, Button, Stack, TextField, Typography} from "@mui/material"
+import {Button, Stack, TextField, Typography} from "@mui/material"
 import * as yup from "yup"
 import {yupResolver} from "@hookform/resolvers/yup"
 import {useForm} from "react-hook-form"
 import useSwr from "swr"
+import {useSnackbar} from "notistack"
 
 const schema = yup.object({
   name: yup.string().required(),
@@ -12,24 +13,36 @@ const schema = yup.object({
 const fetcher = (key: string) => fetch(key).then(res => res.json())
 
 export const LinkAccountPage = (props: {userId: string}) => {
+  // react-hook-form を初期化、validationにyupを使用。
   const {register, handleSubmit, formState: {errors}, reset} = useForm({
     resolver: yupResolver(schema)
   })
 
+  // CosmosDBに記録されている前のデータがあればそれを取得。
   const {data: oldEntryData} = useSwr<{
     result: {userId: string, name: string, phoneNumber: string, id: string}[]
   }>(`/api/users/${props.userId}/retrieveAccountLinkData`, fetcher, {
     onSuccess: data => {
+      // データの読み込みが完了したとき、前のデータが存在すればそれをデフォルト値として設定する。
       const result = data.result
       if (result.length > 0) {
+        enqueueSnackbar("保存されていたデータを読み込みました", {variant: "info"})
         reset({name: result[0].name, phoneNumber: result[0].phoneNumber})
       }
     }
   })
 
+  // notistack
+  const {enqueueSnackbar} = useSnackbar()
+  
+  // フォームがsubmitされた場合
   const onSubmit = async (data: any) => {
+    // snackbarを提示 「登録中です...」
+    enqueueSnackbar("登録中です...", {variant: "info"})
+    let res
     if (oldEntryData && oldEntryData.result.length > 0) {
-      const res = await fetch(`/api/users/${props.userId}/updateAccountLinkData`, {
+      // 前のデータがあれば、そのデータを上書きする
+      res = await fetch(`/api/users/${props.userId}/updateAccountLinkData`, {
         method: "POST",
         body: JSON.stringify({name: data.name, phoneNumber: data.phoneNumber, oldEntryId: oldEntryData.result[0].id}),
         headers: {
@@ -37,13 +50,18 @@ export const LinkAccountPage = (props: {userId: string}) => {
         }
       })
     } else {
-      const res = await fetch(`/api/users/${props.userId}/submitAccountLinkData`, {
+      res = await fetch(`/api/users/${props.userId}/submitAccountLinkData`, {
         method: "POST",
         body: JSON.stringify({name: data.name, phoneNumber: data.phoneNumber}),
         headers: {
           "Content-Type": "application/json",
         }
       })
+    }
+    if (res.ok) {
+      enqueueSnackbar("登録されました", {variant: "success"})
+    } else {
+      enqueueSnackbar("登録に失敗しました", {variant: "error"})
     }
   }
 
@@ -81,5 +99,3 @@ export const LinkAccountPage = (props: {userId: string}) => {
     </form>
   </Stack>
 }
-
-// TODO: correctly manage the form state and display it: loading, submitting, submitted...
