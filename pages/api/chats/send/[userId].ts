@@ -1,10 +1,7 @@
 import {NextApiHandler} from "next"
 import {unstable_getServerSession} from "next-auth"
 import {nextAuthOptions} from "../../auth/[...nextauth]"
-import fetch from "cross-fetch"
-import {getEnvironmentVariableValue} from "../../../../lib/getEnvironmentVariables"
-
-const ENDPOINT = "https://func-sk-line-management.azurewebsites.net/api/send-message"
+import {sendPushMessage} from "../../../../lib/line/sendPushMessage"
 
 const handler: NextApiHandler = async (req, res) => {
   // TODO: implement validation for messages
@@ -21,6 +18,7 @@ const handler: NextApiHandler = async (req, res) => {
       userId = userId[0]
     } else {
       res.status(400).json({error: "multiple userIds were provided."})
+      return
     }
   }
 
@@ -32,14 +30,7 @@ const handler: NextApiHandler = async (req, res) => {
   }
 
   // send the message
-  const response = await fetch(ENDPOINT, {
-    method: "POST",
-    body: JSON.stringify({userId, messages}),
-    headers: {
-      "Content-Type": "application/json",
-      "x-functions-key": getEnvironmentVariableValue("AZURE_FUNCTIONS_HOST_KEY")
-    }
-  })
+  const response = await sendPushMessage({type: "user", userId}, messages)
 
   res.status(response.status).send("")
 }
