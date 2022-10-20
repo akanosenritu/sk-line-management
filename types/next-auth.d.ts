@@ -7,7 +7,9 @@ declare module "next-auth" {
       name: string,
     },
     token: {
-      accessToken: JWT
+      accessToken: JWT,
+      accessTokenExpires: number,
+      refreshToken: JWT,
     }
   }
 }

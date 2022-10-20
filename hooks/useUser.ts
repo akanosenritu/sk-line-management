@@ -21,5 +21,5 @@ export const useUser = () => {
   if (data && data.userPrincipalName) {
     data.isGuest = isGuest(data.userPrincipalName)
   }
-  return {isLoggedOut: !session?.token, data, error, isLoading: status === "loading"}
+  return {isLoggedOut: (session && !session.token), data, error, isLoading: status === "loading"}
 }
