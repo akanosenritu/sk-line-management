@@ -70,8 +70,7 @@ const columns: GridColDef[] = [
   }
 ]
 
-const rows = [
-  {id: 1, name: "高橋伸幸", nameKana: "たかはしのぶゆき", registrationNumber: "1710200", lineUserId: "Uaee4eab94a528exxxxxxxxxxx", registrationDate: "2022/10/15", lineRegistrationDate: "2022/10/16", rank: "A"}
+const rows: any[] = [
 ]
 
 export const DisplayUsersList = () => {
