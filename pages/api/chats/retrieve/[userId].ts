@@ -34,8 +34,8 @@ const handler: NextApiHandler = async (req, res) => {
     ]
   }
   const {resources} = await cosmosDBClient
-    .database("sk")
-    .container("LineMessages")
+    .database("line")
+    .container("Messages")
     .items
     .query(querySpec)
     .fetchAll()

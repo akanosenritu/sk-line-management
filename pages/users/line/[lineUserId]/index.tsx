@@ -1,7 +1,7 @@
 import {NextPage} from "next"
 import {Layout} from "../../../../components/ui/Layout"
 import {ProperUserRequiredPage} from "../../../../components/functional/ProperUserRequiredPage"
-import {IndexPage} from "../../../../components/pages/users/line/userId/IndexPage"
+import {IndexPage} from "../../../../components/pages/users/line/userId/index/IndexPage"
 import {useRouter} from "next/router"
 
 const Page: NextPage = () => {
