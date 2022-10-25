@@ -2,12 +2,8 @@ import '@chatscope/chat-ui-kit-styles/dist/default/styles.min.css'
 import { MainContainer, ChatContainer, MessageList, Message, MessageInput } from '@chatscope/chat-ui-kit-react'
 import useSwr, {useSWRConfig} from "swr"
 import {CircularProgress} from "@mui/material"
-import {
-  CosmosDBLineMessageItemV1,
-} from "../../../types/copied/skLineAzureFunctions/cosmosdb/CosmosDBLineMessageItem"
+import {CosmosDBLineMessageItemV1, MessageObject, OutboundMessageObject} from "shared-types"
 import {format} from "date-fns"
-import {MessageObject} from "../../../types/copied/skLineAzureFunctions/line/webhookEvents/messageEvent"
-import {OutboundMessageObject} from "../../../types/copied/skLineAzureFunctions/line/messages/message"
 
 const fetcher = (key: string) => fetch(key).then(res => res.json())
 

@@ -1,5 +1,5 @@
 {
-  "name": "sk-line-management",
+  "name": "web",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -26,6 +26,7 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-hook-form": "^7.38.0",
+    "shared-types": "^1.0.0",
     "swr": "^1.3.0",
     "yup": "^0.32.11"
   },
